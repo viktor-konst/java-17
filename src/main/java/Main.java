@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        DBManager.getAllActiveLessons();
+        System.out.println(
+        DBManager.getThisTerm(6).getTermName());
+
     }
 }

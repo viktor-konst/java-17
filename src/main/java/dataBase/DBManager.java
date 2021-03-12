@@ -292,6 +292,25 @@ public class DBManager {
         }
 
     }
+    public static Term getThisTerm(int idTerm){
+        Term term=new Term();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/students_17?user=root&password=19577591");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students_17.term\n" +
+                    "where term.id='"+idTerm+"';");
+            rs.next();
+             term.setId(rs.getInt("id"));
+             term.setTermName(rs.getString("term_name"));
+             term.setDuration(rs.getString("duration"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return term;
+    }
 
     public static void addNewTerm(String newName, String newDuration, ArrayList<Lesson> lessons) {
         try {

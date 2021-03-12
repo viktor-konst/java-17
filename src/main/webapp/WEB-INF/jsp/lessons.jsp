@@ -57,10 +57,14 @@
     </div>
     <div class="container">
 
-        <div class="row justify-content-center">
+        <div class="row ">
             <div class="col-sm-1"></div>
             <div class="col-sm-6">
-                <h3 class="">Список дисциплин </h3>
+                <h3 class="">Список дисциплин </h3></div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6">
                 <table>
                     <tr class="first_row">
                         <th></th>
@@ -74,11 +78,12 @@
                         </tr>
                     </c:forEach>
                 </table>
-
             </div>
-            <div class="col-sm-5">
+
+            <div class="col-sm-4">
                 <div class="input_form">
-                    <form><input type="submit" class="students_btn1" value="Создать дисциплину"></form>
+                    <form action="/lessons/new-lesson" method="get"><input type="submit" class="students_btn1"
+                                                                           value="Создать дисциплину"></form>
 
                     <form><input type="submit" class="students_btn1" value="Модифицировать выбранную дисциплину"></form>
 

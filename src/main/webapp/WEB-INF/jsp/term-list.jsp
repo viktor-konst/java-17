@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page isELIgnored="false" %>
 <html lang="ru">
 
@@ -56,17 +57,61 @@
         </div>
     </div>
     <div class="container">
-
-        <div class="col-sm-8">
-            <select class="form-select" aria-label="Выберете группу">
-                <option selected>Выбрать семестр</option>
-                <c:forEach items="${terms}" var="trm"> <option value="1">${trm.termName}</option></c:forEach>
-
-            </select>
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-sm-1"></div>
-            <div class="col-sm-6">
-                <h3 class="">Список дисциплин семестра </h3>
+            <div class="col">
+                <div class="row  mb-3">
+
+                    <label for="colFormLabelLg" class="col-sm-3 col-form-label ">
+                        <h4 class="term_choise">Выбрать семестр:</h4>
+                    </label>
+                    <form method="post">
+                        <div class="col-sm-3">
+                            <select name="termID" class="form-select" aria-label="Выберите группу">
+                                <c:choose>
+                                    <c:when test="${defaultTerm==null}">
+                                        <option selected >${terms.get(0).termName}</option>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <option selected >${defaultTerm.termName}</option>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <c:forEach items="${terms}" var="trm">
+                                    <option value="${trm.id}">${trm.termName}</option>
+                                </c:forEach>
+
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="submit" class="students_btn2 form-control " id="colFormLabelLg"
+                                   value="Выбрать">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col "><h4 class="term_choise">Длительность семестра: <c:choose>
+                <c:when test="${defaultTerm==null}">
+                    <c:out value="${terms.get(0).duration}"></c:out>
+                </c:when>
+
+                <c:otherwise>
+                    <c:out value="${defaultTerm.duration}"></c:out>
+                </c:otherwise>
+            </c:choose>  </h4>
+                <h4 class="term_choise">Список дисциплин семестра </h4></div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+
                 <table>
                     <tr class="first_row">
 
@@ -82,13 +127,15 @@
                 </table>
 
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <div class="input_form">
-                    <form><input type="submit" class="students_btn1" value="Создать дисциплину"></form>
+                    <form><input type="submit" class="students_btn1" value="Создать семестр"></form>
 
-                    <form><input type="submit" class="students_btn1" value="Модифицировать выбранную дисциплину"></form>
+                    <form><input type="submit" class="students_btn1" value="Модифицировать выбранный семестр">
+                    </form>
 
-                    <form><input type="submit" class="students_btn1" value="Удалить выбранные дисциплины"></form>
+                    <form><input type="submit" class="students_btn1" value="Удалить выбранный семестр">
+                    </form>
                 </div>
             </div>
         </div>

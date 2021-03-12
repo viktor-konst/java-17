@@ -76,7 +76,7 @@ body {
 }
 
 .input_form {
-    margin-top: 40px;
+
     text-align: left;
     display: inline-block;
 
@@ -127,4 +127,7 @@ table, td, th {
 
 .first_row {
     background-color: #bebebe;
+}
+.term_choise{
+    text-align: left;
 }
