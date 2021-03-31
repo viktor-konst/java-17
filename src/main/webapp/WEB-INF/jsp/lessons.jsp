@@ -37,7 +37,7 @@
         </div>
         <div class="col-sm-1">
             <div class="loggout_button">
-                <a class="sml_btn" href="">Loggout</a>
+                <a class="sml_btn" href="/logout">Logout</a>
             </div>
         </div>
     </div>
@@ -55,6 +55,7 @@
 
         </div>
     </div>
+    <form>
     <div class="container">
 
         <div class="row ">
@@ -72,7 +73,7 @@
                     </tr>
                     <c:forEach items="${lessons}" var="ls">
                         <tr>
-                            <td><input type="checkbox"></td>
+                            <td><input name="selected" type="checkbox" value="${ls.id}"></td>
                             <td>${ls.lessonName}</td>
 
                         </tr>
@@ -82,16 +83,31 @@
 
             <div class="col-sm-4">
                 <div class="input_form">
-                    <form action="/lessons/new-lesson" method="get"><input type="submit" class="students_btn1"
-                                                                           value="Создать дисциплину"></form>
+                    <c:choose>
+                        <c:when test="${role eq 'администратор'}">
+                            <input formaction="/lessons/new-lesson" formmethod="get" type="submit" class="students_btn1"
+                                   value="Создать дисциплину">
 
-                    <form><input type="submit" class="students_btn1" value="Модифицировать выбранную дисциплину"></form>
+                            <input formaction="/lessons/modify-lesson" formmethod="post" type="submit" class="students_btn1" value="Модифицировать выбранную дисциплину">
 
-                    <form><input type="submit" class="students_btn1" value="Удалить выбранные дисциплины"></form>
+                            <input formmethod="post" formaction="/lessons/deactivate-lessons" type="submit" class="students_btn1" value="Удалить выбранные дисциплины">
+                        </c:when>
+                    </c:choose>
+
+                    <div><c:choose>
+                        <c:when test="${message eq '2'}">
+                            <p>Нужно выбрать одну или несколько дисциплин!</p>
+                        </c:when>
+                    </c:choose></div>
+                    <div><c:choose>
+                        <c:when test="${message eq '1'}">
+                            <p>Нужно выбрать одину дисциплину!</p>
+                        </c:when>
+                    </c:choose></div>
                 </div>
             </div>
         </div>
-    </div>
+    </div></form>
 </div>
 
 

@@ -4,7 +4,8 @@ import java.util.Objects;
 
 public class StudentProgress {
     private int idStudent;
-    private int idLesson;
+    private int idStudentProgress;
+    private String lessonName;
     private int mark;
 
     public StudentProgress() {
@@ -18,12 +19,20 @@ public class StudentProgress {
         this.idStudent = idStudent;
     }
 
-    public int getIdLesson() {
-        return idLesson;
+    public int getIdStudentProgress() {
+        return idStudentProgress;
     }
 
-    public void setIdLesson(int idLesson) {
-        this.idLesson = idLesson;
+    public void setIdStudentProgress(int idStudentProgress) {
+        this.idStudentProgress = idStudentProgress;
+    }
+
+    public String getLessonName() {
+        return lessonName;
+    }
+
+    public void setLessonName(String lessonName) {
+        this.lessonName = lessonName;
     }
 
     public int getMark() {
@@ -39,19 +48,20 @@ public class StudentProgress {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentProgress that = (StudentProgress) o;
-        return idStudent == that.idStudent && idLesson == that.idLesson && mark == that.mark;
+        return idStudent == that.idStudent && idStudentProgress == that.idStudentProgress && mark == that.mark && Objects.equals(lessonName, that.lessonName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idStudent, idLesson, mark);
+        return Objects.hash(idStudent, idStudentProgress, lessonName, mark);
     }
 
     @Override
     public String toString() {
         return "StudentProgress{" +
                 "idStudent=" + idStudent +
-                ", idLesson=" + idLesson +
+                ", idStudentProgress=" + idStudentProgress +
+                ", lessonName='" + lessonName + '\'' +
                 ", mark=" + mark +
                 '}';
     }

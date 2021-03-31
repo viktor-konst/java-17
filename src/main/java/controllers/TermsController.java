@@ -19,17 +19,18 @@ public class TermsController extends HttpServlet {
 
         ArrayList<Term> terms = DBManager.getAllActiveTerm();
         ArrayList<Lesson> lessons = DBManager.getAllLessonsOfTerm(terms.get(0).getId());
-
+        Term defaultTerm = terms.get(0);
         req.setAttribute("lessons", lessons);
         req.setAttribute("terms", terms);
-
+        req.setAttribute("defaultTerm",defaultTerm);
         req.getRequestDispatcher("/WEB-INF/jsp/term-list.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         Term defaultTerm = DBManager.getThisTerm(Integer.parseInt(req.getParameter("termID")));
-        System.out.println(defaultTerm.getTermName());
+
         ArrayList<Term> terms = DBManager.getAllActiveTerm();
 
         ArrayList<Lesson> lessons = DBManager.getAllLessonsOfTerm(Integer.parseInt(req.getParameter("termID")));

@@ -1,12 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikto
-  Date: 09.03.2021
-  Time: 12:41
+  Date: 18.03.2021
+  Time: 12:07
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 <%@page pageEncoding="UTF-8" %>
 <html lang="ru">
@@ -24,9 +25,9 @@
     <script src="../../resources/js/jquery-1.12.4.js"></script>
     <script src="../../resources/js/jquery-ui.js"></script>
     <script>
-        $(function () {
-            $("#colFormLabelLg").datepicker({dateFormat: 'dd-mm-yy'});
-        });
+        $( function() {
+            $( "#colFormLabelLg" ).datepicker({ dateFormat: 'dd/mm/yy' });
+        } );
     </script>
     <title>My Study</title>
 </head>
@@ -63,7 +64,7 @@
                 <a class="sml_btn" href="/students">Назад</a>
             </div>
             <div class="col-sm-8">
-                <h4>Для создания студента заполните все поля и нажмите кнопку "Создать"</h4>
+                <h4>Для модификации студента заполните все поля и нажмите кнопку "Модифицировать"</h4>
             </div>
 
 
@@ -81,24 +82,30 @@
                         <div class="row ">
                             <label for="colFormLabelSm" class="col-sm-2 col-form-label ">Фамилия</label>
                             <div class="col-sm-8">
-                                <input type="text" name="lastname" class="form-control " id="colFormLabelSm"
-                                       placeholder="Фамилия">
+                                <input type="text" name="lastname" class="form-control " id="colFormLabelSm" value="${student.lastname}">
                             </div>
                         </div>
                         <div class="row ">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Имя</label>
                             <div class="col-sm-8">
-                                <input type="text" name="firstname" class="form-control" id="colFormLabel"
-                                       placeholder="Имя">
+                                <input type="text" name="firstname" class="form-control" id="colFormLabel" value="${student.firstname}">
                             </div>
                         </div>
                         <div class="row  ">
                             <label for="colFormLabelLg" class="col-sm-2 col-form-label ">Группа</label>
                             <div class="col-sm-8">
                                 <select class="form-select" name="group" aria-label="Default select example">
-                                    <option selected>Выберите группу</option>
-                                    <c:forEach items="${groupList}" var="gl">
-                                        <option value="${gl.id}">${gl.groupName}</option>
+
+                                    <c:forEach items="${groups}" var="gl">
+                                        <c:choose>
+                                            <c:when test="${student.group.id==gl.id}">
+                                                <option selected value="${student.group.id}"><c:out value="${student.group.groupName}"></c:out></option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${gl.id}">${gl.groupName}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </c:forEach>
 
                                 </select>
@@ -109,13 +116,14 @@
                                    class="col-sm-2 col-form-label ">Дата&nbsp;поступления</label>
                             <div class="col-sm-8">
                                 <input type="text" name="date" class="form-control " id="colFormLabelLg"
-                                       placeholder="Дата поступления">
+                                       value="<fmt:formatDate pattern="dd/MM/yyyy" value="${student.date}"/>">
                             </div>
                         </div>
-                        <input type="submit" value="Создать" class="students_btn2">
+                        <input type="hidden" name="selected" value="${student.id}">
+                        <input  type="submit" value="Модифицировать" class="students_btn2">
                     </form>
                     <div><c:choose>
-                        <c:when test="${message eq '1'}">
+                        <c:when test="${message eq '2'}">
                             <p class="input_error">Поля не должны быть пустыми!</p>
                         </c:when>
                     </c:choose></div>

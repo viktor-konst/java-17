@@ -35,7 +35,7 @@
         </div>
         <div class="col-sm-1">
             <div class="loggout_button">
-                <a class="sml_btn" href="">Loggout</a>
+                <a class="sml_btn" href="/logout">Logout</a>
             </div>
         </div>
     </div>

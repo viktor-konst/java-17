@@ -22,7 +22,11 @@ public class NewLessonController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+        if (req.getParameter("lessonName").equals("")) {
+            req.setAttribute("message", "1");
+            req.getRequestDispatcher("/WEB-INF/jsp/new-lesson.jsp").forward(req, resp);
+            return;
+        }
         DBManager.createLesson(req.getParameter("lessonName"));
         resp.sendRedirect("/lessons");
     }

@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikto
+  Date: 19.03.2021
+  Time: 21:23
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: vikto
   Date: 12.03.2021
   Time: 11:28
   To change this template use File | Settings | File Templates.
@@ -8,7 +15,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
-<%@page pageEncoding="UTF-8" %>
 <html lang="ru">
 
 <head>
@@ -55,7 +61,7 @@
                 <a class="sml_btn" href="/lessons">Назад</a>
             </div>
             <div class="col-sm-8">
-                <h4>Для создания новой дисциплины заполните все поля и нажмите кнопку "Создать"</h4>
+                <h4>Для модификации дисциплины заполните все поля и нажмите кнопку "Применить"</h4>
             </div>
 
 
@@ -73,19 +79,18 @@
                         <div class="row ">
                             <label for="colFormLabelSm" class="col-sm-2 col-form-label  ">Название</label>
                             <div class="col-sm-6">
-                                <input type="text" name="lessonName" class="form-control " id="colFormLabelSm"
-                                       placeholder="">
+                                <input type="text" name="lessonName" class="form-control " id="colFormLabelSm" value="${lesson.lessonName}">
+                                <input class="" type="hidden" name="selected" value="${lesson.id}">
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-6"><input type="submit" value="Создать" class="students_btn2 ">
+                            <div class="col-sm-2"> </div>
+                            <div class="col-sm-6"><input type="submit" value="Применить" class="students_btn2 ">
                                 <div><c:choose>
-                                    <c:when test="${message eq '1'}">
+                                    <c:when test="${message eq '2'}">
                                         <p class="input_error">Поля не должны быть пустыми!</p>
                                     </c:when>
-                                </c:choose></div>
-                            </div>
+                                </c:choose></div></div>
                         </div>
                     </form>
 

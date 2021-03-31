@@ -10,7 +10,7 @@ body {
     margin: auto;
 }
 
-.form {
+.auth-form {
     position: relative;
     z-index: 1;
     background: #FFFFFF;
@@ -21,7 +21,7 @@ body {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.form input {
+.auth-form input {
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;
@@ -33,7 +33,7 @@ body {
     font-size: 14px;
 }
 
-.form button {
+.auth-form .login-btn {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -76,11 +76,11 @@ body {
 }
 
 .input_form {
-
+   
     text-align: left;
     display: inline-block;
-
 }
+
 .students_btn1 {
     width: 380px;
     margin-bottom: 10px;
@@ -130,4 +130,26 @@ table, td, th {
 }
 .term_choise{
     text-align: left;
+}
+.studetn_inf{
+    padding: 0px;
+    
+}
+.studetn_inf_table{
+    width: 100%;
+}
+.form-control{
+    width: 100%;
+}
+.marks{
+    margin-top: 20px;
+}
+.create_btns{
+    margin-top: 10px;
+}
+.student_mark {
+    padding: 0px 30px 0px 30px;
+}
+.input_error{
+    color: #cf3636;
 }

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 <html lang="ru">
 
@@ -19,6 +20,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../resources/css/style.css">
+    <link rel="stylesheet" href="../../resources/css/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function (even) {
+            $("submit").click(function () {
+                var checkvalue = [];
+                $.each($("input[name='selected']:checked"), function () {
+                    checkvalue.push($(this).val());
+                });
+                alert("checkvalue: " + checkvalue.join(", "));
+            });
+        });
+    </script>
     <title>My Study</title>
 </head>
 
@@ -37,70 +51,94 @@
         </div>
         <div class="col-sm-1">
             <div class="loggout_button">
-                <a class="sml_btn" href="">Loggout</a>
+                <a class="sml_btn" href="/logout">Logout</a>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container">
-    <div class="info">
-        <div class="row">
-            <div class="col-sm-1">
-                <a href="/home">На&nbsp;главную</a>
-            </div>
-
-            <div class="col">
-                <div>
-                    <form>   <input type="submit" class="students_btn1" value="Посмотреть успеваемость выбранного студента"></form>
-
-                    <form>  <input type="submit" class="students_btn1" value="Модифицировать выбранного студента"></form>
-                </div>
-            </div>
-            <div class="col">
-                <div>
-                    <form  action="/students/new-student" method="get">
-                        <input class="students_btn2" type="submit"  value="Создать студента"></form>
-                    <form> <input type="submit" class="students_btn2" value="Удалить выбранных студентов"></form>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-
-            </div>
-
-        </div>
+<form>
+    <div class="container">
         <div class="info">
             <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-10">
+                <div class="col-sm-1">
+                    <a href="/home">На&nbsp;главную</a>
+                </div>
+
+                <div class="col">
                     <div>
-                        <h3>Список студентов</h3>
-                        <table>
-                            <tr class="first_row">
-                                <th></th>
-                                <th>Фамилия</th>
-                                <th>Имя</th>
-                                <th>Группа</th>
-                                <th>Дата поступления</th>
-                            </tr>
-                            <c:forEach items="${students}" var="st">
-                            <tr>
-                                <td><input name="selected" type="checkbox" value="${st.id}"></td>
-                                <td>${st.lastname}</td>
-                                <td>${st.firstname}</td>
-                                <td>${st.group.groupName}</td>
-                                <td>${st.date}</td>
-                            </tr>
-                            </c:forEach>
-                        </table>
+
+                        <input formmethod="post" formaction="/student-info" type="submit" class="students_btn1"
+                               value="Посмотреть успеваемость выбранного студента">
+                        <c:choose>
+                            <c:when test="${role eq 'администратор'}">
+                                <input formaction="/students/modify_student" formmethod="post" type="submit"
+                                       class="students_btn1" value="Модифицировать выбранного студента">
+                            </c:when>
+                        </c:choose>
+
+                        <div><c:choose>
+                            <c:when test="${message eq '1'}">
+                                <p>Нужно выбрать одного студента!</p>
+                            </c:when>
+                        </c:choose></div>
                     </div>
                 </div>
-                <div class="col-sm-1"></div>
+                <div class="col">
+                    <div>
+                        <c:choose>
+                            <c:when test="${role eq 'администратор'}">
+                                <input formaction="/students/new-student" formmethod="get" class="students_btn2" type="submit"
+                                       value="Создать студента">
+                                <input formmethod="post" formaction="/students/deactivate" type="submit" class="students_btn2"
+                                       value="Удалить выбранных студентов">
+                            </c:when>
+                        </c:choose>
+
+                        <div><c:choose>
+                            <c:when test="${message eq '2'}">
+                                <p>Нужно выбрать одного или нескольких студентов!</p>
+                            </c:when>
+                        </c:choose></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+
+                </div>
+
+            </div>
+            <div class="info">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div>
+                            <h3>Список студентов</h3>
+                            <table>
+                                <tr class="first_row">
+                                    <th></th>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Группа</th>
+                                    <th>Дата поступления</th>
+                                </tr>
+                                <c:forEach items="${students}" var="st">
+                                    <tr>
+                                        <td><input name="selected" type="checkbox" value="${st.id}"></td>
+                                        <td>${st.lastname}</td>
+                                        <td>${st.firstname}</td>
+                                        <td>${st.group.groupName}</td>
+                                        <td><fmt:formatDate pattern="dd/MM/yyyy" value="${st.date}"/></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 </body>
 
 </html>
