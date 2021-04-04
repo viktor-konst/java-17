@@ -39,11 +39,11 @@
         <div class="login-page">
             <div class="auth-form">
 
-                <form action="/auth"  method="post" class="login-form">
+                <form  class="login-form">
                     <input name="username" type="text" placeholder="username" />
                     <input name="password" type="password" placeholder="password" />
-                    <input type="submit" value="Войти" class="login-btn">
-
+                    <input formaction="/auth" formmethod="post" type="submit" value="Войти" class="login-btn">
+                    <input class="login-btn" formaction="/login-as-a-guest" formmethod="get" type="submit" value="Войти без учетной записи">
                 </form>
                 <div><c:choose>
                     <c:when test="${message eq '3'}">
@@ -51,6 +51,8 @@
                     </c:when>
                 </c:choose></div>
             </div>
+
+
         </div>
 
     </div>

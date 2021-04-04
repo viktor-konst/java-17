@@ -36,9 +36,18 @@
             </div>
         </div>
         <div class="col-sm-1">
-            <div class="loggout_button">
-                <a class="sml_btn" href="/logout">Logout</a>
-            </div>
+            <c:choose>
+                <c:when test="${role eq 'guest' }">
+                    <div class="loggout_button">
+                        <a class="sml_btn" href="/logout">Login</a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="loggout_button">
+                        <a class="sml_btn" href="/logout">Logout</a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>

@@ -21,10 +21,10 @@ public class AuthFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
         String loginURI = request.getContextPath() + "/auth";
-
+        String guestURI = request.getContextPath()+"/login-as-a-guest";
 
         boolean loggedIn = session != null && session.getAttribute("userName") != null;
-        boolean loginRequest = request.getRequestURI().equals(loginURI);
+        boolean loginRequest = request.getRequestURI().equals(loginURI) || request.getRequestURI().equals(guestURI);
         if (loggedIn) {
             request.setAttribute("role", session.getAttribute("userRole"));
         }
